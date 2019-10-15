@@ -14,3 +14,19 @@ body{
     background-size: cover;
     border-radius: 15px;
 }
+
+header{
+    font-weight: bolder;
+    font-size: 50px;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    color: rgba(255, 255, 255, 0.952);
+}
+
+.btn{
+    width: 50%;
+    font-size: 20px;
+    font-family: 'Orbitron', sans-serif;
+    margin-left: 25%;
+    margin-top: 25%;
+}
