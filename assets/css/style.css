@@ -1,0 +1,15 @@
+body{
+    position: relative;
+    background: url('../images/happy-colorful-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container{
+    margin-top: 5%;
+    margin-left: 15%;
+    position: absolute;
+    height: 80vh;
+    background-color: aliceblue;
+    border-radius: 15px;
+}
