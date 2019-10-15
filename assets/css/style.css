@@ -10,6 +10,7 @@ body{
     margin-left: 15%;
     position: absolute;
     height: 80vh;
-    background-color: aliceblue;
+    background: url('../images/cinderella-background.jpg');
+    background-size: cover;
     border-radius: 15px;
 }
