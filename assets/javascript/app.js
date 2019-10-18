@@ -77,15 +77,15 @@ $(document).ready(function () {
     choice1.attr('class', 'choices');
     choice2.attr('class', 'choices');
     choice3.attr('class', 'choices');
-    contButton.attr('class', 'btn');
+    contButton.attr('class', 'btn2');
 
     button.on('click', function () {
         button.remove();
-        container.append(timer);
         play();
     });
 
     function play() {
+        container.append(timer);
         if (index > question.length) {
             endGame();
         }
@@ -115,7 +115,6 @@ $(document).ready(function () {
             let questionAnswer = questionsBox[indexOfChoice].answer;
             if (questionAnswer === "a") {
                 clearInterval(countDown);
-                container.empty();
                 win = true;
                 indexOfImage = indexOfChoice * 2;
                 endRound();
@@ -148,18 +147,38 @@ $(document).ready(function () {
 
     }
     function endRound() {
+        container.empty();
         index++;
-        time = 31;
         gifs.attr('src', images[indexOfImage]);
         contButton.text('Continue');
+        container.append(timer);
+        container.append(gifs);
         container.append(contButton);
         if (win) {
             win = false;
-            container.append(gifs);
-            //play();
+            playAgain();
+        } else {
+            lose = false;
+            playAgain();
         }
+    }
 
-
+    function playAgain() {
+        time = 11;
+        var countdown2 = setInterval(function () {
+            time--;
+            timer.text("Time Remaining: " + time);
+        }, 1000);
+        if (time <= 0) {
+            clearInterval(countdown2);
+            time = 31;
+            play();
+        }
+        contButton.on('click', function () {
+            clearInterval(countdown2);
+            time = 31;
+            play();
+        });
     }
 
     function endGame() {

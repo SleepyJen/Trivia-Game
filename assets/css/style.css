@@ -59,3 +59,14 @@ header{
 .choices:hover{
     background-color: rgba(0, 255, 255, 0.63);
 }
+
+.btn2{
+    width: 50%;
+    font-size: 20px;
+    font-family: 'Orbitron', sans-serif;
+    margin-left: 25%;
+    margin-top: 5%;
+    background-color: blue;
+    padding: 10px;
+    color: white;
+}
