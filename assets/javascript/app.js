@@ -43,6 +43,7 @@ $(document).ready(function () {
     var question = [];
     var choiceHolder = [];
     var choice = [];
+    var sorted = false;
 
     var button = $('.btn');
     var container = $('.container');
@@ -71,6 +72,7 @@ $(document).ready(function () {
             if (time <= 0) {
                 clearInterval(countDown);
                 endRound();
+                index++;
             }
         }, 1000);
         for (let i = 0; i < questionsBox.length; i++) {
@@ -81,9 +83,8 @@ $(document).ready(function () {
             choice.push(choiceHolder);
             choiceHolder = [];
         }
-        question.sort(() => {
-            return 0.5 - Math.random();
-        });
+        sortedQuestions();
+
         questionDiv.text(question[index]);
         container.append(questionDiv);
         indexOfChoice = questionsBox.findIndex(x => x.question === question[index]);
@@ -94,9 +95,29 @@ $(document).ready(function () {
         container.append(choice1);
         container.append(choice2);
         container.append(choice3);
+
+        if (index > question.length) {
+            endGame();
+        }
+    }
+
+    function sortedQuestions() {
+        if (sorted) {
+            return;
+        } else {
+            question.sort(() => {
+                return 0.5 - Math.random();
+            });
+            sorted = true;
+        }
+
     }
     function endRound() {
-
+        index++;
+        play();
     }
 
+    function endGame() {
+
+    }
 });
