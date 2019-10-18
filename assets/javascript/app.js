@@ -32,14 +32,17 @@ $(document).ready(function () {
             choices: {
                 a: "Alice in Wonderland",
                 b: "Mary Poppins",
-                c: ""
+                c: "Peter Pan"
             },
             answer: "a"
         }]
 
     var time = 31;
     var index = 0;
+    var indexOfChoice = 0;
     var question = [];
+    var choiceHolder = [];
+    var choice = [];
 
     var button = $('.btn');
     var container = $('.container');
@@ -51,6 +54,9 @@ $(document).ready(function () {
 
     timer.attr('class', 'time');
     questionDiv.attr('class', 'question');
+    choice1.attr('class', 'choices');
+    choice2.attr('class', 'choices');
+    choice3.attr('class', 'choices');
 
     button.on('click', function () {
         button.remove();
@@ -69,12 +75,25 @@ $(document).ready(function () {
         }, 1000);
         for (let i = 0; i < questionsBox.length; i++) {
             question.push(questionsBox[i].question);
+            for (letter in questionsBox[i].choices) {
+                choiceHolder.push(letter + ": " + questionsBox[i].choices[letter]);
+            }
+            choice.push(choiceHolder);
+            choiceHolder = [];
         }
         question.sort(() => {
             return 0.5 - Math.random();
         });
         questionDiv.text(question[index]);
         container.append(questionDiv);
+        indexOfChoice = questionsBox.findIndex(x => x.question === question[index]);
+        choice1.text(choice[indexOfChoice][0]);
+        choice2.text(choice[indexOfChoice][1]);
+        choice3.text(choice[indexOfChoice][2]);
+
+        container.append(choice1);
+        container.append(choice2);
+        container.append(choice3);
     }
     function endRound() {
 
