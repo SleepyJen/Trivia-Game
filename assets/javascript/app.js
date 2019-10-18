@@ -44,17 +44,24 @@ $(document).ready(function () {
     var choiceHolder = [];
     var choice = [];
     var sorted = false;
+    var images = ['', '', '', '../assets/images/Alice_won.gif'];
+    var win = false;
+    var lost = false;
+    var indexOfImage;
 
     var button = $('.btn');
-    var container = $('.container');
-    var timer = $('<h2></h2>');
+    var container = $('.containerBox');
+    var timer = $('<div></div>');
     var questionDiv = $('<div></div>');
     var choice1 = $('<div></div>');
     var choice2 = $('<div></div>');
     var choice3 = $('<div></div>');
+    var gifs = $('<img>');
+    var contButton = $('<button></button>');
 
     timer.attr('class', 'time');
     questionDiv.attr('class', 'question');
+    choice1.attr('id', 'firstChoice');
     choice1.attr('class', 'choices');
     choice2.attr('class', 'choices');
     choice3.attr('class', 'choices');
@@ -66,19 +73,21 @@ $(document).ready(function () {
     });
 
     function play() {
+        if (index > question.length) {
+            endGame();
+        }
         var countDown = setInterval(function () {
             time--;
             timer.text("Time Remaining: " + time);
             if (time <= 0) {
                 clearInterval(countDown);
-                endRound();
-                index++;
+                endround();
             }
         }, 1000);
         for (let i = 0; i < questionsBox.length; i++) {
             question.push(questionsBox[i].question);
             for (letter in questionsBox[i].choices) {
-                choiceHolder.push(letter + ": " + questionsBox[i].choices[letter]);
+                choiceHolder.push(questionsBox[i].choices[letter]);
             }
             choice.push(choiceHolder);
             choiceHolder = [];
@@ -88,17 +97,28 @@ $(document).ready(function () {
         questionDiv.text(question[index]);
         container.append(questionDiv);
         indexOfChoice = questionsBox.findIndex(x => x.question === question[index]);
-        choice1.text(choice[indexOfChoice][0]);
-        choice2.text(choice[indexOfChoice][1]);
-        choice3.text(choice[indexOfChoice][2]);
+        choice1.text("a: " + choice[indexOfChoice][0]);
+        choice2.text("b: " + choice[indexOfChoice][1]);
+        choice3.text("c: " + choice[indexOfChoice][2]);
 
         container.append(choice1);
         container.append(choice2);
         container.append(choice3);
 
-        if (index > question.length) {
-            endGame();
-        }
+        $('#firstChoice').on('click', function () {
+            let questionAnswer = questionsBox[indexOfChoice].answer;
+            if (questionAnswer === "a") {
+                clearInterval(countDown);
+                container.empty();
+                win = true;
+                indexOfImage = indexOfChoice * 2;
+                endRound();
+            } else {
+                lost = true;
+                indexOfImage = indexOfChoice * 2 + 1;
+            }
+        });;
+
     }
 
     function sortedQuestions() {
@@ -114,7 +134,15 @@ $(document).ready(function () {
     }
     function endRound() {
         index++;
-        play();
+        time = 31;
+        gifs.attr('src', images[indexOfChoice]);
+        if (win) {
+            win = false;
+            container.append(gifs);
+            play();
+        }
+
+
     }
 
     function endGame() {
