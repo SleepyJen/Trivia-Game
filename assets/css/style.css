@@ -32,9 +32,13 @@ header{
 }
 
 .time{
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
     margin-top: 20px;
     font-weight: bold;
 }
 
+.question{
+    text-align: center;
+    width: 50%;
+}

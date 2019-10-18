@@ -37,13 +37,20 @@ $(document).ready(function () {
             answer: "a"
         }]
 
-    var time = 30;
+    var time = 31;
+    var index = 0;
+    var question = [];
 
     var button = $('.btn');
     var container = $('.container');
     var timer = $('<h2></h2>');
+    var questionDiv = $('<div></div>');
+    var choice1 = $('<div></div>');
+    var choice2 = $('<div></div>');
+    var choice3 = $('<div></div>');
 
     timer.attr('class', 'time');
+    questionDiv.attr('class', 'question');
 
     button.on('click', function () {
         button.remove();
@@ -54,13 +61,20 @@ $(document).ready(function () {
     function play() {
         var countDown = setInterval(function () {
             time--;
-            timer.text(time);
+            timer.text("Time Remaining: " + time);
             if (time <= 0) {
                 clearInterval(countDown);
                 endRound();
             }
         }, 1000);
-
+        for (let i = 0; i < questionsBox.length; i++) {
+            question.push(questionsBox[i].question);
+        }
+        question.sort(() => {
+            return 0.5 - Math.random();
+        });
+        questionDiv.text(question[index]);
+        container.append(questionDiv);
     }
     function endRound() {
 
