@@ -53,12 +53,12 @@ $(document).ready(function () {
     var choiceHolder = [];
     var choice = [];
     var sorted = false;
-    var images = ['../assets/images/101Dalmations_won.gif', '../assets/images/101Dalmations_lost.gif',
+    var images = ['../assets/images/101Dalmation_won.gif', '../assets/images/101Dalmation_lost.gif',
         '../assets/images/FindingNemo_won.gif', '../assets/images/FindingNemo_lost.gif',
         '../assets/images/PeterPan_won.gif', '../assets/images/PeterPan_lost.gif',
-        '../assets/images/Alice_won.gif', '../assets/images/Alice_lost.gif'];
+        '../assets/images/Alice_won.gif', '../assets/images/Alice_lost.gif',
+        '../assets/images/MaryPoppins_won.gif', '../assets/images/MaryPoppins_lost.gif'];
     var win = false;
-    var lost = false;
     var indexOfImage;
 
     var button = $('.btn');
@@ -74,6 +74,8 @@ $(document).ready(function () {
     timer.attr('class', 'time');
     questionDiv.attr('class', 'question');
     choice1.attr('id', 'firstChoice');
+    choice2.attr('id', 'secondChoice');
+    choice3.attr('id', 'thridChoice');
     choice1.attr('class', 'choices');
     choice2.attr('class', 'choices');
     choice3.attr('class', 'choices');
@@ -85,6 +87,7 @@ $(document).ready(function () {
     });
 
     function play() {
+        //clearInterval(countdown2);
         container.append(timer);
         if (index > question.length) {
             endGame();
@@ -119,11 +122,39 @@ $(document).ready(function () {
                 indexOfImage = indexOfChoice * 2;
                 endRound();
             } else {
-                lost = true;
+                clearInterval(countDown);
                 indexOfImage = indexOfChoice * 2 + 1;
                 endRound()
             }
-        });;
+        });
+
+        $('#secondChoice').on('click', function () {
+            let questionAnswer = questionsBox[indexOfChoice].answer;
+            if (questionAnswer === "b") {
+                clearInterval(countDown);
+                win = true;
+                indexOfImage = indexOfChoice * 2;
+                endRound();
+            } else {
+                clearInterval(countDown);
+                indexOfImage = indexOfChoice * 2 + 1;
+                endRound()
+            }
+        });
+
+        $('#thirdChoice').on('click', function () {
+            let questionAnswer = questionsBox[indexOfChoice].answer;
+            if (questionAnswer === "c") {
+                clearInterval(countDown);
+                win = true;
+                indexOfImage = indexOfChoice * 2;
+                endRound();
+            } else {
+                clearInterval(countDown);
+                indexOfImage = indexOfChoice * 2 + 1;
+                endRound()
+            }
+        });
 
     }
 
@@ -146,6 +177,7 @@ $(document).ready(function () {
         }
 
     }
+
     function endRound() {
         container.empty();
         index++;
@@ -158,7 +190,6 @@ $(document).ready(function () {
             win = false;
             playAgain();
         } else {
-            lose = false;
             playAgain();
         }
     }
@@ -170,12 +201,14 @@ $(document).ready(function () {
             timer.text("Time Remaining: " + time);
         }, 1000);
         if (time <= 0) {
+            container.empty();
             clearInterval(countdown2);
             time = 31;
             play();
         }
         contButton.on('click', function () {
             clearInterval(countdown2);
+            container.empty();
             time = 31;
             play();
         });
