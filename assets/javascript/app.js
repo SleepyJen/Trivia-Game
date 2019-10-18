@@ -35,6 +35,15 @@ $(document).ready(function () {
                 c: "Peter Pan"
             },
             answer: "a"
+        },
+        {
+            question: "Who played the original Mary Poppins?",
+            choices: {
+                a: 'Emily Blunt',
+                b: 'Julie Andrews',
+                c: 'Jodie Benson'
+            },
+            answer: "b"
         }]
 
     var time = 31;
@@ -44,7 +53,10 @@ $(document).ready(function () {
     var choiceHolder = [];
     var choice = [];
     var sorted = false;
-    var images = ['', '', '', '../assets/images/Alice_won.gif'];
+    var images = ['../assets/images/101Dalmations_won.gif', '../assets/images/101Dalmations_lost.gif',
+        '../assets/images/FindingNemo_won.gif', '../assets/images/FindingNemo_lost.gif',
+        '../assets/images/PeterPan_won.gif', '../assets/images/PeterPan_lost.gif',
+        '../assets/images/Alice_won.gif', '../assets/images/Alice_lost.gif'];
     var win = false;
     var lost = false;
     var indexOfImage;
@@ -65,6 +77,7 @@ $(document).ready(function () {
     choice1.attr('class', 'choices');
     choice2.attr('class', 'choices');
     choice3.attr('class', 'choices');
+    contButton.attr('class', 'btn');
 
     button.on('click', function () {
         button.remove();
@@ -84,14 +97,7 @@ $(document).ready(function () {
                 endround();
             }
         }, 1000);
-        for (let i = 0; i < questionsBox.length; i++) {
-            question.push(questionsBox[i].question);
-            for (letter in questionsBox[i].choices) {
-                choiceHolder.push(questionsBox[i].choices[letter]);
-            }
-            choice.push(choiceHolder);
-            choiceHolder = [];
-        }
+
         sortedQuestions();
 
         questionDiv.text(question[index]);
@@ -116,6 +122,7 @@ $(document).ready(function () {
             } else {
                 lost = true;
                 indexOfImage = indexOfChoice * 2 + 1;
+                endRound()
             }
         });;
 
@@ -125,6 +132,14 @@ $(document).ready(function () {
         if (sorted) {
             return;
         } else {
+            for (let i = 0; i < questionsBox.length; i++) {
+                question.push(questionsBox[i].question);
+                for (letter in questionsBox[i].choices) {
+                    choiceHolder.push(questionsBox[i].choices[letter]);
+                }
+                choice.push(choiceHolder);
+                choiceHolder = [];
+            }
             question.sort(() => {
                 return 0.5 - Math.random();
             });
@@ -135,11 +150,13 @@ $(document).ready(function () {
     function endRound() {
         index++;
         time = 31;
-        gifs.attr('src', images[indexOfChoice]);
+        gifs.attr('src', images[indexOfImage]);
+        contButton.text('Continue');
+        container.append(contButton);
         if (win) {
             win = false;
             container.append(gifs);
-            play();
+            //play();
         }
 
 
