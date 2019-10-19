@@ -204,7 +204,6 @@ $(document).ready(function () {
         container.append(gifs);
         container.append(contButton);
         if (win) {
-            win = false;
             playAgain();
         } else {
 
@@ -219,6 +218,7 @@ $(document).ready(function () {
         var countdown2 = setInterval(function () {
             time--;
             if (win) {
+                win = false;
                 timer.html("Time Remaining: " + time + '<br> Very Nice!');
             } else {
                 timer.html("Time Remaining: " + time + '<br> Sorry! The Correct Answer is: ' + questionsBox[index - 1].choices[questionsBox[index - 1].answer]);
