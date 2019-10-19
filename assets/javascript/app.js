@@ -53,11 +53,11 @@ $(document).ready(function () {
     var choiceHolder = [];
     var choice = [];
     var sorted = false;
-    var images = ['../assets/images/101Dalmation_won.gif', '../assets/images/101Dalmation_lost.gif',
-        '../assets/images/FindingNemo_won.gif', '../assets/images/FindingNemo_lost.gif',
-        '../assets/images/PeterPan_won.gif', '../assets/images/PeterPan_lost.gif',
-        '../assets/images/Alice_won.gif', '../assets/images/Alice_lost.gif',
-        '../assets/images/MaryPoppins_won.gif', '../assets/images/MaryPoppins_lost.gif'];
+    var images = ['../../assets/images/101Dalmation_won.gif', '../../assets/images/101Dalmation_lost.gif',
+        '../../assets/images/FindingNemo_won.gif', '../../assets/images/FindingNemo_lost.gif',
+        '../../assets/images/PeterPan_won.gif', '../../assets/images/PeterPan_lost.gif',
+        '../../assets/images/Alice_won.gif', '../../assets/images/Alice_lost.gif',
+        '../../assets/images/MaryPoppins_won.gif', '../../assets/images/MaryPoppins_lost.gif'];
     var win = false;
     var indexOfImage;
 
@@ -101,7 +101,6 @@ $(document).ready(function () {
         }, 1000);
 
         sortedQuestions();
-
         if (index > question.length - 1) {
             clearInterval(countDown);
             endGame();
