@@ -207,16 +207,22 @@ $(document).ready(function () {
             win = false;
             playAgain();
         } else {
+
             playAgain();
         }
     }
 
     function playAgain() {
         time = 10;
-        timer.text("Time Remaining: " + time);
+
+        timer.html("Time Remaining: " + time);
         var countdown2 = setInterval(function () {
             time--;
-            timer.text("Time Remaining: " + time);
+            if (win) {
+                timer.html("Time Remaining: " + time + '<br> Very Nice!');
+            } else {
+                timer.html("Time Remaining: " + time + '<br> Sorry! The Correct Answer is: ' + questionsBox[index - 1].choices[questionsBox[index - 1].answer]);
+            }
             if (time <= 0) {
                 container.empty();
                 clearInterval(countdown2);
