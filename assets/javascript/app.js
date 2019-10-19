@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const questionsBox = [
+    let questionsBox = [
         {
             question: "Cruella de Vil is the villain in which movie?",
             choices: {
@@ -46,7 +46,7 @@ $(document).ready(function () {
             answer: "b"
         }]
 
-    var time = 31;
+    var time = 30;
     var index = 0;
     var indexOfChoice = 0;
     var question = [];
@@ -60,16 +60,20 @@ $(document).ready(function () {
         '../../assets/images/MaryPoppins_won.gif', '../../assets/images/MaryPoppins_lost.gif'];
     var win = false;
     var indexOfImage;
+    var winScore = 0;
 
     var button = $('.btn');
     var container = $('.containerBox');
-    var timer = $('<div></div>');
-    var questionDiv = $('<div></div>');
-    var choice1 = $('<div></div>');
-    var choice2 = $('<div></div>');
-    var choice3 = $('<div></div>');
+    var timer = $('<div>');
+    var questionDiv = $('<div>');
+    var choice1 = $('<div>');
+    var choice2 = $('<div>');
+    var choice3 = $('<div>');
     var gifs = $('<img>');
-    var contButton = $('<button></button>');
+    var contButton = $('<button>');
+    var end = $('<div>');
+
+    end.attr('class', 'end');
 
     timer.attr('class', 'time');
     questionDiv.attr('class', 'question');
@@ -89,6 +93,7 @@ $(document).ready(function () {
     function play() {
         console.log(index);
 
+        timer.text("Time Remaining: " + time);
         container.append(timer);
 
         var countDown = setInterval(function () {
@@ -96,7 +101,8 @@ $(document).ready(function () {
             timer.text("Time Remaining: " + time);
             if (time <= 0) {
                 clearInterval(countDown);
-                endround();
+                indexOfImage = indexOfChoice * 2 + 1;
+                endRound();
             }
         }, 1000);
 
@@ -118,11 +124,13 @@ $(document).ready(function () {
         container.append(choice2);
         container.append(choice3);
 
-        $('#firstChoice').on('click', function () {
+        $('#firstChoice').on('click', function (event) {
+            // console.log(event.currentTarget);
             let questionAnswer = questionsBox[indexOfChoice].answer;
             if (questionAnswer === "a") {
                 clearInterval(countDown);
                 win = true;
+                winScore++;
                 indexOfImage = indexOfChoice * 2;
                 endRound();
             } else {
@@ -137,6 +145,7 @@ $(document).ready(function () {
             if (questionAnswer === "b") {
                 clearInterval(countDown);
                 win = true;
+                winScore++;
                 indexOfImage = indexOfChoice * 2;
                 endRound();
             } else {
@@ -151,6 +160,7 @@ $(document).ready(function () {
             if (questionAnswer === "c") {
                 clearInterval(countDown);
                 win = true;
+                winScore++;
                 indexOfImage = indexOfChoice * 2;
                 endRound();
             } else {
@@ -183,6 +193,9 @@ $(document).ready(function () {
     }
 
     function endRound() {
+        if (index > question.length - 1) {
+            endGame();
+        }
         gifs.attr({ src: images[indexOfImage], class: 'gifImage' });
         container.empty();
         index++;
@@ -199,14 +212,15 @@ $(document).ready(function () {
     }
 
     function playAgain() {
-        time = 11;
+        time = 10;
+        timer.text("Time Remaining: " + time);
         var countdown2 = setInterval(function () {
             time--;
             timer.text("Time Remaining: " + time);
             if (time <= 0) {
                 container.empty();
                 clearInterval(countdown2);
-                time = 31;
+                time = 30;
                 play();
             }
         }, 1000);
@@ -214,12 +228,14 @@ $(document).ready(function () {
         contButton.on('click', function () {
             clearInterval(countdown2);
             container.empty();
-            time = 31;
+            time = 30;
             play();
         });
     }
 
     function endGame() {
-
+        container.empty();
+        end.html("Congratulations!! <br>Your Score is : " + winScore + "/5");
+        container.append(end);
     }
 });

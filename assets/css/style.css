@@ -6,13 +6,17 @@ body{
 }
 
 .container{
-    margin-top: 5%;
-    margin-left: 15%;
-    position: absolute;
+    margin: 5% auto;
     height: 80vh;
     background: url('../images/cinderella-background.jpg');
     background-size: cover;
     border-radius: 15px;
+}
+
+.containerBox { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header{
@@ -26,7 +30,6 @@ header{
     width: 50%;
     font-size: 20px;
     font-family: 'Orbitron', sans-serif;
-    margin-left: 25%;
     margin-top: 25%;
 }
 
@@ -46,10 +49,9 @@ header{
 .choices{
     padding: 10px;
     margin-top: 20px;
-    margin-left: 25%;
     font-size: 20px;
     width: 50%;
-
+    cursor: pointer;
 }
 
 .choices, .question, .time, header{
@@ -64,9 +66,8 @@ header{
     width: 50%;
     font-size: 20px;
     font-family: 'Orbitron', sans-serif;
-    margin-left: 25%;
     margin-top: 5%;
-    background-color: blue;
+    background-color: green;
     padding: 10px;
     color: white;
 }
@@ -74,5 +75,17 @@ header{
 .gifImage{
     width: 350px;
     height: 300px;
-    margin-left: 30%;
+}
+
+.end{
+    font-weight: bolder;
+    font-size: 50px;
+    color: white;
+    padding-top: 25%;
+}
+
+.endScore{
+    font-weight: bolder;
+    font-size: 50px;
+    color: white;
 }

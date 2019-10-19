@@ -1,0 +1,47 @@
+
+
+/*
+
+    {
+        question: "In Finding Nemo, which country has Nemo been taken to?",
+        choices: {
+            a: "Austrailia",
+            b: "Italy",
+            c: "Germany"
+        },
+        answer: "a"
+    }
+
+*/
+
+
+question = questionBox[index] // stuff above
+
+questionDiv.text(question.question);
+
+choices = question.choices
+answer = question.answer
+
+choiceDivs = Object.keys(choices).map(key => {
+    currentChoice = choices[key];
+    choiceDiv = $(<div>).text(currentChoice); // add the on click listener
+    choiceDiv.attr("key", key);
+    choiceDiv.on('click', choiceDivEventListener)
+
+    return choiceDiv;
+});
+
+
+function choiceDivEventListener(event) {
+    const choiceKey = event.currentTarget.key // a, b or c
+    if (choiceKey === answer) {
+        // handle correct answer
+    } else {
+        // wrong answer
+    }
+}
+
+// what gets created by the map above
+[<div>, <div>, <div>]
+
+choicewrapper.html(choiceDivs);
