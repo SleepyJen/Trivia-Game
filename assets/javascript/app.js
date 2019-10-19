@@ -75,10 +75,10 @@ $(document).ready(function () {
     questionDiv.attr('class', 'question');
     choice1.attr('id', 'firstChoice');
     choice2.attr('id', 'secondChoice');
-    choice3.attr('id', 'thridChoice');
+    choice3.attr({ id: 'thridChoice', class: 'choices' });
+
     choice1.attr('class', 'choices');
     choice2.attr('class', 'choices');
-    choice3.attr('class', 'choices');
     contButton.attr('class', 'btn2');
 
     button.on('click', function () {
@@ -87,11 +87,10 @@ $(document).ready(function () {
     });
 
     function play() {
-        //clearInterval(countdown2);
+        console.log(index);
+
         container.append(timer);
-        if (index > question.length) {
-            endGame();
-        }
+
         var countDown = setInterval(function () {
             time--;
             timer.text("Time Remaining: " + time);
@@ -102,6 +101,12 @@ $(document).ready(function () {
         }, 1000);
 
         sortedQuestions();
+
+        if (index > question.length - 1) {
+            clearInterval(countDown);
+            endGame();
+            return;
+        }
 
         questionDiv.text(question[index]);
         container.append(questionDiv);
@@ -124,7 +129,7 @@ $(document).ready(function () {
             } else {
                 clearInterval(countDown);
                 indexOfImage = indexOfChoice * 2 + 1;
-                endRound()
+                endRound();
             }
         });
 
@@ -138,11 +143,11 @@ $(document).ready(function () {
             } else {
                 clearInterval(countDown);
                 indexOfImage = indexOfChoice * 2 + 1;
-                endRound()
+                endRound();
             }
         });
 
-        $('#thirdChoice').on('click', function () {
+        $('#thridChoice').on('click', function () {
             let questionAnswer = questionsBox[indexOfChoice].answer;
             if (questionAnswer === "c") {
                 clearInterval(countDown);
@@ -152,7 +157,7 @@ $(document).ready(function () {
             } else {
                 clearInterval(countDown);
                 indexOfImage = indexOfChoice * 2 + 1;
-                endRound()
+                endRound();
             }
         });
 
@@ -179,9 +184,9 @@ $(document).ready(function () {
     }
 
     function endRound() {
+        gifs.attr({ src: images[indexOfImage], class: 'gifImage' });
         container.empty();
         index++;
-        gifs.attr('src', images[indexOfImage]);
         contButton.text('Continue');
         container.append(timer);
         container.append(gifs);
@@ -199,13 +204,14 @@ $(document).ready(function () {
         var countdown2 = setInterval(function () {
             time--;
             timer.text("Time Remaining: " + time);
+            if (time <= 0) {
+                container.empty();
+                clearInterval(countdown2);
+                time = 31;
+                play();
+            }
         }, 1000);
-        if (time <= 0) {
-            container.empty();
-            clearInterval(countdown2);
-            time = 31;
-            play();
-        }
+
         contButton.on('click', function () {
             clearInterval(countdown2);
             container.empty();
