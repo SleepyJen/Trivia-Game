@@ -91,8 +91,7 @@ $(document).ready(function () {
     });
 
     function play() {
-        console.log(index);
-
+        win = false;
         timer.text("Time Remaining: " + time);
         container.append(timer);
 
@@ -218,12 +217,12 @@ $(document).ready(function () {
         var countdown2 = setInterval(function () {
             time--;
             if (win) {
-                win = false;
                 timer.html("Time Remaining: " + time + '<br> Very Nice!');
             } else {
-                timer.html("Time Remaining: " + time + '<br> Sorry! The Correct Answer is: ' + questionsBox[index - 1].choices[questionsBox[index - 1].answer]);
+                timer.html("Time Remaining: " + time + '<br> Sorry! The Correct Answer is: ' + questionsBox[indexOfChoice].choices[questionsBox[indexOfChoice].answer]);
             }
             if (time <= 0) {
+                win = false;
                 container.empty();
                 clearInterval(countdown2);
                 time = 30;
